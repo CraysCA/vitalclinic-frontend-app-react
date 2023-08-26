@@ -1,27 +1,102 @@
-import { Link } from 'react-router-dom'
-import { Children } from 'react'
+import { useState } from 'react'
 
-export default function Sidebar() {
+import { useAuth } from '../auth/AuthProvider'
+
+import { Link, useLocation } from 'react-router-dom'
+import {
+	IconHome,
+	IconFile,
+	IconUsers,
+	IconCircleChevronLeft,
+	IconUserCircle,
+	IconLogout,
+} from '@tabler/icons-react'
+const Sidebar = () => {
+	const auth = useAuth()
+	const user = auth.getUser()
+	const [open, setOpen] = useState(true)
+
+	const location = useLocation()
+	const currentPath = location.pathname
+
+	let menu = []
+	console.log(user.type)
+
+	if (user.type == 1) {
+		menu = [
+			{ title: 'Panel Principal', to: '/dashboard', src: <IconHome /> },
+			{ title: 'Mis Archivos', to: '/files', src: <IconFile /> },
+			{ title: 'Usuarios ', to: '/users', src: <IconUsers /> },
+		]
+	} else {
+		menu = [
+			{ title: 'Panel Principal', to: '/dashboard', src: <IconHome /> },
+			{ title: 'Mis Archivos', to: '/files', src: <IconFile /> },
+		]
+	}
+
 	return (
-		<div>
-			<aside>
-				<nav>
-					<ul>
-						<li>
-							<Link to="/login">Login</Link>
-						</li>
-						<li>
-							<Link to="/dashboard">Dashboard</Link>
-						</li>
-						<li>
-							<Link to="/users">Users</Link>
-						</li>
-						<li>
-							<Link to="/files">Archivos</Link>
-						</li>
+		<div className="flex pr-10 shadow-md">
+			<div
+				className={` ${
+					open ? 'w-72' : 'w-20 '
+				} bg-dark-purple h-screen p-5  pt-8 relative duration-300 flex flex-col justify-between`}>
+				<div>
+					<IconCircleChevronLeft
+						onClick={() => setOpen(!open)}
+						className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
+           border-2 rounded-full  ${!open && 'rotate-180'}`}
+					/>
+					<div className="flex gap-x-4 items-center">
+						<img
+							src="./src/assets/logo.png"
+							className={`cursor-pointer duration-500 ${
+								open && 'rotate-[360deg]'
+							}`}
+						/>
+						<h1
+							className={`text-white origin-left font-medium text-xl duration-200 ${
+								!open && 'scale-0'
+							}`}>
+							Designer
+						</h1>
+					</div>
+					<ul className="pt-6">
+						{menu.map((item, index) => (
+							<Link
+								to={item.to}
+								key={index}
+								className={`flex  rounded-md p-2 cursor-pointer hover:bg-black text-gray-300 text-sm items-center gap-x-4 
+              ${item.gap ? 'mt-9' : 'mt-2'} ${
+								currentPath === item.to ? 'bg-slate-700' : ''
+							}  `}>
+								{item.src}
+								<span
+									className={`${!open && 'hidden'} origin-left duration-200`}>
+									{item.title}
+								</span>
+							</Link>
+						))}
 					</ul>
-				</nav>
-			</aside>
+				</div>
+				<div className=" p-5  flex flex-col gap-3">
+					<div className="flex flex-row gap-2">
+						<IconUserCircle />
+						<span className={`${!open && 'hidden'} origin-left duration-200`}>
+							{user.name} {user.lastname}
+						</span>
+					</div>
+					<Link
+						to="/logout"
+						className="flex flex-row gap-2 hover:bg-black rounded-md hover:text-white p-4">
+						<IconLogout />
+						<span className={`${!open && 'hidden'} origin-left duration-200`}>
+							Cerrar Sesión
+						</span>
+					</Link>
+				</div>
+			</div>
 		</div>
 	)
 }
+export default Sidebar

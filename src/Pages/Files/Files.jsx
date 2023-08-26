@@ -1,11 +1,22 @@
 import ListOfFiles from './components/ListOfFiles'
 import UploadFile from './components/UploadFile'
 
+import { useAuth } from '../../auth/AuthProvider'
+import Sidebar from '../../components/Sidebar'
+
 export default function Files() {
+	const auth = useAuth()
+	const user = auth.getUser()
+	const authToken = auth.getAuthToken()
+	const userData = { user, authToken }
+
 	return (
-		<section className="bg-white px-6 py-24 sm:py-10 lg:px-8 h-screen lg:pl-72">
-			<UploadFile />
-			<ListOfFiles />
+		<section className="flex flex-row gap-5">
+			<Sidebar />
+			<div>
+				<UploadFile userData={userData} />
+				<ListOfFiles userData={userData} />
+			</div>
 		</section>
 	)
 }

@@ -1,11 +1,37 @@
-import { getFiles } from '../../../api/getFiles'
+import { useState, useEffect } from 'react'
+
 const parseDate = date => {
 	const [parseDate, rest] = new Date(date).toLocaleString().split(',')
 	return parseDate
 }
 
-export default function ListOfFiles() {
-	const files = []
+export default function ListOfFiles(props) {
+	const { user, authToken } = props?.userData
+
+	const [files, setFiles] = useState([])
+
+	useEffect(() => {
+		fetch(
+			`https://vitalclinic-backend-81os-dev.fl0.io/files/?userId=${
+				user?.id || ''
+			}`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					'X-User-Id': 1,
+					auth_token: authToken,
+				},
+				next: {
+					revalidate: 60,
+				},
+			},
+		)
+			.then(res => res.json())
+			.then(data => setFiles(data.success && data.data ? data.data : []))
+	}, [])
+
 	return (
 		<div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
 			<div className="flex items-center justify-between pb-4 ">

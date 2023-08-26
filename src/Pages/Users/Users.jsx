@@ -1,7 +1,22 @@
+import ListOfUsers from './components/ListOfUsers'
+import { redirect } from 'react-router-dom'
+import { useAuth } from '../../auth/AuthProvider'
+import Sidebar from '../../components/Sidebar'
+
 export default function Users() {
+	const auth = useAuth()
+	const user = auth.getUser()
+
+	console.log(user.type)
+
+	//if (user.type == 1) return redirect('/dashboard')
+
 	return (
-		<section className="bg-white px-6 py-24 sm:py-32 lg:px-8 h-screen lg:pl-72">
-			<h1>users</h1>
+		<section className="bg-white ">
+			<div className=" flex flex-row gap-5 ">
+				<Sidebar />
+				<ListOfUsers />
+			</div>
 		</section>
 	)
 }
