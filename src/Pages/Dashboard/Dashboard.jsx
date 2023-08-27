@@ -6,9 +6,10 @@ export default function Dashboard() {
 	const auth = useAuth()
 	const user = auth.getUser()
 	return (
-		<section className="flex flex-row gap-5 ">
-			<Sidebar isFocus={true} />
-			<h1>esto es el Dashboard</h1>
+		<section>
+			<Sidebar>
+				<h1>esto es el Dashboard</h1>
+			</Sidebar>
 		</section>
 	)
 }

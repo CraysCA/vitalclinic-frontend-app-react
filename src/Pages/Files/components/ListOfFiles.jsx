@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import UploadFile from './UploadFile'
 
 const parseDate = date => {
 	const [parseDate, rest] = new Date(date).toLocaleString().split(',')
@@ -33,8 +34,8 @@ export default function ListOfFiles(props) {
 	}, [])
 
 	return (
-		<div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4">
-			<div className="flex items-center justify-between pb-4 ">
+		<div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4  h-screen">
+			<div className="flex flex-row justify-center items-center gap-6 pb-4 ">
 				<label htmlFor="table-search" className="sr-only">
 					Search
 				</label>
@@ -59,8 +60,10 @@ export default function ListOfFiles(props) {
 						placeholder="Search for items"
 					/>
 				</div>
+				<UploadFile />
 			</div>
-			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+
+			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
 				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 					<tr>
 						<th scope="col" className="px-6 py-3">
@@ -81,7 +84,7 @@ export default function ListOfFiles(props) {
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody className=" ">
 					{files.map(file => (
 						<tr
 							key={file.id}

@@ -9,11 +9,17 @@ import Dashboard from './Pages/Dashboard/Dashboard'
 import ProtectedRoute from './components/ProtectedRoute'
 import { AuthProvider } from './auth/AuthProvider'
 import Files from './Pages/Files/Files'
+import NotFound from './Pages/NotFound'
+import Logout from './Pages/logout'
 
 const router = createBrowserRouter([
 	{
 		path: '/login',
 		element: <Login />,
+	},
+	{
+		path: '/logout',
+		element: <Logout />,
 	},
 	{
 		path: '/',
@@ -33,12 +39,14 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+	{
+		path: '*',
+		element: <NotFound />,
+	},
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<React.StrictMode>
-		<AuthProvider>
-			<RouterProvider router={router} />
-		</AuthProvider>
-	</React.StrictMode>,
+	<AuthProvider>
+		<RouterProvider router={router} />
+	</AuthProvider>,
 )

@@ -2,7 +2,8 @@ import ListOfFiles from './components/ListOfFiles'
 import UploadFile from './components/UploadFile'
 
 import { useAuth } from '../../auth/AuthProvider'
-import Sidebar from '../../components/Sidebar'
+
+import Layout from '../../components/layaout'
 
 export default function Files() {
 	const auth = useAuth()
@@ -11,12 +12,10 @@ export default function Files() {
 	const userData = { user, authToken }
 
 	return (
-		<section className="flex flex-row gap-5">
-			<Sidebar />
-			<div>
-				<UploadFile userData={userData} />
+		<section>
+			<Layout>
 				<ListOfFiles userData={userData} />
-			</div>
+			</Layout>
 		</section>
 	)
 }

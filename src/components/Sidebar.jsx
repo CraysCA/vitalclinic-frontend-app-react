@@ -11,7 +11,7 @@ import {
 	IconUserCircle,
 	IconLogout,
 } from '@tabler/icons-react'
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
 	const auth = useAuth()
 	const user = auth.getUser()
 	const [open, setOpen] = useState(true)
@@ -36,11 +36,11 @@ const Sidebar = () => {
 	}
 
 	return (
-		<div className="flex pr-10 shadow-md">
+		<div className="h-screen flex">
 			<div
 				className={` ${
 					open ? 'w-72' : 'w-20 '
-				} bg-dark-purple h-screen p-5  pt-8 relative duration-300 flex flex-col justify-between`}>
+				} bg-dark-purple h-full p-5  pt-8 relative duration-300 flex flex-col justify-between   shadow-md mr-6`}>
 				<div>
 					<IconCircleChevronLeft
 						onClick={() => setOpen(!open)}
@@ -48,17 +48,13 @@ const Sidebar = () => {
            border-2 rounded-full  ${!open && 'rotate-180'}`}
 					/>
 					<div className="flex gap-x-4 items-center">
-						<img
-							src="./src/assets/logo.png"
+						<h1
 							className={`cursor-pointer duration-500 ${
 								open && 'rotate-[360deg]'
-							}`}
-						/>
-						<h1
-							className={`text-white origin-left font-medium text-xl duration-200 ${
+							} ${
 								!open && 'scale-0'
-							}`}>
-							Designer
+							} " text-2xl font-bold text-dark-blue overflow-hidden`}>
+							VITAL<span className=" text-red-500">CLINIC</span>
 						</h1>
 					</div>
 					<ul className="pt-6">
@@ -96,6 +92,7 @@ const Sidebar = () => {
 					</Link>
 				</div>
 			</div>
+			<div className="w-full ">{children}</div>
 		</div>
 	)
 }

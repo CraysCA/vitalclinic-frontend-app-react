@@ -29,13 +29,13 @@ export default function ListOfUsers() {
 	}, [])
 
 	return (
-		<div className=" overflow-x-auto shadow-md sm:rounded-lg p-4">
+		<div className="overflow-x-auto shadow-md sm:rounded-lg p-4 h-screen ">
 			<div className=" flex flex-row gap-6 z-10 ">
-				<div className="flex items-center justify-between pb-4 bg-white dark:bg-gray-900">
+				<div className="flex items-center justify-between pb-4 bg-white dark:bg-gray-900 ">
 					<label htmlFor="table-search" className="sr-only">
 						Search
 					</label>
-					<div className="relative">
+					<div className="relative ">
 						<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 							<svg
 								className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -63,7 +63,7 @@ export default function ListOfUsers() {
 				</div>
 				<CreateUser />
 			</div>
-			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  ">
 				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 					<tr>
 						<th scope="col" className="px-6 py-3">

@@ -7,13 +7,13 @@ const AuthContext = createContext({
 	saveUser: userData => {},
 	getRefreshToken: () => {},
 	getUser: () => {},
+	logout: () => {},
 })
 
 export function AuthProvider({ children }) {
 	const [isAuthenticated, setIsAuthenticated] = useState(false)
 	const [authToken, setAuthToken] = useState('')
 	const [user, setUser] = useState('')
-	//	const [refreshToken, setRefreshToken] = useState('')
 
 	useEffect(() => {
 		checkAuth()
@@ -55,6 +55,13 @@ export function AuthProvider({ children }) {
 		return user
 	}
 
+	function logout() {
+		localStorage.removeItem('auth_token')
+		setIsAuthenticated(false)
+		setUser('')
+		setAuthToken('')
+	}
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -63,6 +70,7 @@ export function AuthProvider({ children }) {
 				saveUser,
 				getRefreshToken,
 				getUser,
+				logout,
 			}}>
 			{children}
 		</AuthContext.Provider>
