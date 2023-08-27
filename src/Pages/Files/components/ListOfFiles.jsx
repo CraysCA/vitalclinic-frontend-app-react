@@ -29,9 +29,9 @@ export default function ListOfFiles(props) {
 
 	useEffect(() => {
 		fetch(
-			`https://vitalclinic-backend-81os-dev.fl0.io/files/?userId=${
+			`${import.meta.env.VITE_BACKEND_API}/files/?userId=${
 				userId || ''
-			}`,
+			}&isClient=1`,
 			{
 				method: 'GET',
 				headers: {
@@ -139,7 +139,7 @@ export default function ListOfFiles(props) {
 			) : (
 				''
 			)}
-			{results.length && search <= 0 ? (
+			{results.length <= 0 && search ? (
 				<h2 className="text-center font-semibold p-10">Pedido no Encontrado</h2>
 			) : (
 				''

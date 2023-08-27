@@ -1,6 +1,6 @@
 export const getFiles = async ({ params }) => {
 	try {
-		const url = `https://vitalclinic-backend-81os-dev.fl0.io/files/?userId=${
+		const url = `${import.meta.env.VITE_BACKEND_API}/files/?userId=${
 			params?.userId || ''
 		}`
 		const response = await fetch(url, {

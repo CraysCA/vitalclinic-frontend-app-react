@@ -5,12 +5,14 @@ export const postUploadFile = async (e, user, authToken) => {
 		body.append('files', e.target.files[0])
 		if (user.type == 1 || user.type == 2) {
 			body.append('folder', 'inventory')
+			body.append('isClient', false)
 		} else {
 			body.append('folder', `${userId}/inventory`)
+			body.append('isClient', true)
 		}
 
 		const response = await fetch(
-			`https://vitalclinic-backend-81os-dev.fl0.io/files/upload`,
+			`${import.meta.env.VITE_BACKEND_API}/files/upload`,
 			{
 				method: 'POST',
 				headers: {

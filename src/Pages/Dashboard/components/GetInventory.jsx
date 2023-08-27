@@ -6,6 +6,7 @@ const parseDate = date => {
 	return rest
 }
 
+console.log()
 const parseFilename = filename => {
 	const [name, rest] = filename.split('.')
 	return name
@@ -18,7 +19,7 @@ export default function GetInventory(props) {
 	const [files, setFiles] = useState([])
 
 	useEffect(() => {
-		fetch(`https://vitalclinic-backend-81os-dev.fl0.io/files/inventory`, {
+		fetch(`${import.meta.env.VITE_BACKEND_API}/files/inventory`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ export default function GetInventory(props) {
 								className=" shadow-md w-96 rounded-md h-52 overflow-hidden">
 								<img
 									className="w-full h-20 object-cover "
-									src="https://t3.ftcdn.net/jpg/04/81/01/22/240_F_481012251_ZU7z6O0FZP3ImhZsjvAf5Biy7Gtdkq29.jpg"
+									src="/excel_banner.jpg"
 									alt="casa"
 								/>
 								<div className="flex flex-col pl-4 gap-6">

@@ -1,7 +1,7 @@
 export const postCreateUser = async (credentials, user, authToken) => {
 	const { id: userId } = user
 	try {
-		const url = `https://vitalclinic-backend-81os-dev.fl0.io/users/`
+		const url = `${import.meta.env.VITE_BACKEND_API}/users/`
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {

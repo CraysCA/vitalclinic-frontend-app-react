@@ -29,7 +29,7 @@ export default function ListOfUsers(props) {
 	}
 
 	useEffect(() => {
-		fetch(`https://vitalclinic-backend-81os-dev.fl0.io/users/`, {
+		fetch(`${import.meta.env.VITE_BACKEND_API}/users/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export default function ListOfUsers(props) {
 			) : (
 				''
 			)}
-			{results.length && search <= 0 ? (
+			{results.length <= 0 && search ? (
 				<h2 className="text-center font-semibold p-10">
 					Usuario no Encontrado
 				</h2>

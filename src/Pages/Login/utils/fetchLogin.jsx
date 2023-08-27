@@ -2,7 +2,7 @@ import { Buffer } from 'buffer'
 export const fetchLogin = async credentials => {
 	try {
 		const { email, password } = credentials
-		const url = 'https://vitalclinic-backend-81os-dev.fl0.io/auth/login'
+		const url = `${import.meta.env.VITE_BACKEND_API}/auth/login`
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
