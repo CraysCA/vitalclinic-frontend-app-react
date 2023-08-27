@@ -6,6 +6,8 @@ import Sidebar from '../../components/Sidebar'
 export default function Users() {
 	const auth = useAuth()
 	const user = auth.getUser()
+	const authToken = auth.getAuthToken()
+	const userData = { user, authToken }
 
 	return user.type != 1 ? (
 		<Navigate to="/dashboard" />
@@ -13,7 +15,7 @@ export default function Users() {
 		<section className="bg-white ">
 			<div>
 				<Sidebar>
-					<ListOfUsers />
+					<ListOfUsers userData={userData} />
 				</Sidebar>
 			</div>
 		</section>

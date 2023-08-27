@@ -8,8 +8,11 @@ function checkType(user) {
 	return type
 }
 
-export default function ListOfUsers() {
+export default function ListOfUsers(props) {
+	const { user, authToken } = props.userData
+	const userId = user.id
 	const [users, setUsers] = useState([])
+	const [search, setSearch] = useState('')
 
 	useEffect(() => {
 		fetch(`https://vitalclinic-backend-81os-dev.fl0.io/users/`, {
@@ -17,8 +20,8 @@ export default function ListOfUsers() {
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
-				'X-User-Id': 1,
-				auth_token: '',
+				'X-User-Id': userId,
+				auth_token: authToken,
 			},
 			next: {
 				revalidate: 60,
@@ -26,14 +29,17 @@ export default function ListOfUsers() {
 		})
 			.then(res => res.json())
 			.then(data => setUsers(data.success && data.data ? data.data : []))
-	}, [])
+	}, [authToken, userId])
 
 	return (
 		<div className="overflow-x-auto shadow-md sm:rounded-lg p-4 h-screen ">
+			<h1 className="text-center font-semibold p-10 text-2xl">
+				Listas de Usuarios
+			</h1>
 			<div className=" flex flex-row gap-6 z-10 ">
 				<div className="flex items-center justify-between pb-4 bg-white dark:bg-gray-900 ">
 					<label htmlFor="table-search" className="sr-only">
-						Search
+						Buscar
 					</label>
 					<div className="relative ">
 						<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -57,11 +63,11 @@ export default function ListOfUsers() {
 							type="text"
 							id="table-search-users"
 							className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-							placeholder="Search for users"
+							placeholder="Buscar Usuarios"
 						/>
 					</div>
 				</div>
-				<CreateUser />
+				<CreateUser userData={props.userData} />
 			</div>
 			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  ">
 				<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

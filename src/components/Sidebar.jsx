@@ -25,13 +25,13 @@ const Sidebar = ({ children }) => {
 	if (user.type == 1) {
 		menu = [
 			{ title: 'Panel Principal', to: '/dashboard', src: <IconHome /> },
-			{ title: 'Mis Archivos', to: '/files', src: <IconFile /> },
+			{ title: 'Pedidos', to: '/files', src: <IconFile /> },
 			{ title: 'Usuarios ', to: '/users', src: <IconUsers /> },
 		]
 	} else {
 		menu = [
 			{ title: 'Panel Principal', to: '/dashboard', src: <IconHome /> },
-			{ title: 'Mis Archivos', to: '/files', src: <IconFile /> },
+			{ title: 'Mis Pedidos', to: '/files', src: <IconFile /> },
 		]
 	}
 

@@ -8,20 +8,21 @@ const parseDate = date => {
 
 export default function ListOfFiles(props) {
 	const { user, authToken } = props?.userData
+	const userId = user.id
 
 	const [files, setFiles] = useState([])
 
 	useEffect(() => {
 		fetch(
 			`https://vitalclinic-backend-81os-dev.fl0.io/files/?userId=${
-				user?.id || ''
+				userId || ''
 			}`,
 			{
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
-					'X-User-Id': 1,
+					'X-User-Id': userId,
 					auth_token: authToken,
 				},
 				next: {
@@ -31,13 +32,16 @@ export default function ListOfFiles(props) {
 		)
 			.then(res => res.json())
 			.then(data => setFiles(data.success && data.data ? data.data : []))
-	}, [])
+	}, [userId, authToken])
 
 	return (
 		<div className="relative overflow-x-auto shadow-md sm:rounded-lg p-4  h-screen">
+			<h1 className="text-center font-semibold p-10 text-2xl">
+				Listas de Pedidos
+			</h1>
 			<div className="flex flex-row justify-center items-center gap-6 pb-4 ">
 				<label htmlFor="table-search" className="sr-only">
-					Search
+					Buscar
 				</label>
 				<div className="relative">
 					<div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -57,10 +61,13 @@ export default function ListOfFiles(props) {
 						type="text"
 						id="table-search"
 						className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						placeholder="Search for items"
+						placeholder="Buscar Pedido"
 					/>
 				</div>
-				<UploadFile />
+				<div className="mt-1 text-sm text-gray-500 dark:text-gray-300 ">
+					<UploadFile userData={props.userData} />
+					.XLSX .XLSM .XLSB .XLTX (Solo archivos EXCELS)
+				</div>
 			</div>
 
 			<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">

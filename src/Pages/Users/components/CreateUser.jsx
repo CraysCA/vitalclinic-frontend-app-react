@@ -1,7 +1,8 @@
 import { Toaster, toast } from 'sonner'
 import { useState } from 'react'
 import { postCreateUser } from '../../../api/post-create-user'
-export default function CreateUser() {
+export default function CreateUser(props) {
+	const { user, authToken } = props.userData
 	const [credentials, setCredentials] = useState({})
 
 	const handlerChange = e => {
@@ -9,7 +10,8 @@ export default function CreateUser() {
 	}
 	const handlerSubmit = async e => {
 		e.preventDefault()
-		const isCreated = await postCreateUser(credentials)
+
+		const isCreated = await postCreateUser(credentials, user, authToken)
 
 		if (!isCreated) {
 			toast.error('No se pudo crear el usuario')
