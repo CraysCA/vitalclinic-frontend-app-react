@@ -29,7 +29,7 @@ export default function Login() {
 
 			auth.saveUser(userData)
 
-			goTo('/dashboard')
+			return <Navigate to="/dashboard" replace={true} />
 		} else {
 			toast.error('Correo o contraseña incorrectos')
 		}
@@ -40,7 +40,11 @@ export default function Login() {
 			<div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-						Iniciar sesión
+						<h1
+							className="cursor-pointer
+						  text-2xl font-bold text-dark-blue overflow-hidden">
+							VITAL<span className=" text-red-500">CLINIC</span>
+						</h1>
 					</h2>
 				</div>
 				<div className="mt-10 ">
@@ -93,6 +97,9 @@ export default function Login() {
 						<div className="text-sm text-center">
 							<a
 								href="#"
+								onClick={() => {
+									alert('Contacta con soporte')
+								}}
 								className="font-semibold text-dark-blue-2 hover:text-indigo-500">
 								Olvidé mi Contraseña
 							</a>

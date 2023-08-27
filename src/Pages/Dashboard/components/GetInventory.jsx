@@ -62,7 +62,8 @@ export default function GetInventory(props) {
 										</div>
 										<a
 											href={file.downloadUrl}
-											className=" right-10 w-40 py-2 px-7 rounded-md bg-blue-600 font-medium  text-center text-white dark:text-blue-500  focus:bg-dark-blue transition-all duration-150 hover:bg-dark-blue-2 hover:scale-105">
+											className=" right-10 w-40 py-2 px-7 rounded-md  bg-dark-blue 
+											focus:ring-4 focus:ring-blue-300 font-medium  text-center text-white  focus:bg-dark-blue transition-all duration-150 hover:bg-dark-blue-2 hover:scale-105">
 											Descargar
 										</a>
 									</div>

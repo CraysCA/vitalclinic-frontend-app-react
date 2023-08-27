@@ -1,5 +1,4 @@
 import ListOfFiles from './components/ListOfFiles'
-import UploadFile from './components/UploadFile'
 
 import { useAuth } from '../../auth/AuthProvider'
 

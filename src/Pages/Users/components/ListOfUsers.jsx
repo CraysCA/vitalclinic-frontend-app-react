@@ -14,6 +14,20 @@ export default function ListOfUsers(props) {
 	const [users, setUsers] = useState([])
 	const [search, setSearch] = useState('')
 
+	const handlerSearch = e => {
+		setSearch(e.target.value)
+	}
+
+	//filter
+	let results = []
+	if (!search) {
+		results = users
+	} else {
+		results = users.filter(data =>
+			data.name.toLowerCase().includes(search.toLocaleLowerCase()),
+		)
+	}
+
 	useEffect(() => {
 		fetch(`https://vitalclinic-backend-81os-dev.fl0.io/users/`, {
 			method: 'GET',
@@ -60,9 +74,12 @@ export default function ListOfUsers(props) {
 						</div>
 
 						<input
+							value={search}
+							onChange={handlerSearch}
 							type="text"
 							id="table-search-users"
-							className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+							className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+							focus:ring-2 focus:ring-dark-blue-2 outline-none"
 							placeholder="Buscar Usuarios"
 						/>
 					</div>
@@ -87,9 +104,9 @@ export default function ListOfUsers(props) {
 					</tr>
 				</thead>
 				<tbody>
-					{users.map(user => (
+					{results.map(userInfo => (
 						<tr
-							key={user.id}
+							key={userInfo.id}
 							className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 							<th
 								scope="row"
@@ -97,16 +114,18 @@ export default function ListOfUsers(props) {
 								<img
 									className="w-10 h-10 rounded-full"
 									src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-									alt={user.name}
+									alt={userInfo.name}
 								/>
 								<div className="pl-3">
 									<div className="text-base font-semibold">
-										{user.name} {user.lastname}
+										{userInfo.name} {userInfo.lastname}
 									</div>
-									<div className="font-normal text-gray-500">{user.email}</div>
+									<div className="font-normal text-gray-500">
+										{userInfo.email}
+									</div>
 								</div>
 							</th>
-							<td className="px-6 py-4">{checkType(user)}</td>
+							<td className="px-6 py-4">{checkType(userInfo)}</td>
 							<td className="px-6 py-4">
 								<div className="flex items-center">
 									<div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
@@ -126,6 +145,13 @@ export default function ListOfUsers(props) {
 			</table>
 			{users.length <= 0 ? (
 				<h2 className="text-center font-semibold p-10">Aún no hay Usuarios</h2>
+			) : (
+				''
+			)}
+			{results.length && search <= 0 ? (
+				<h2 className="text-center font-semibold p-10">
+					Usuario no Encontrado
+				</h2>
 			) : (
 				''
 			)}

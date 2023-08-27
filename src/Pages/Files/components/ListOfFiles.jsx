@@ -11,6 +11,21 @@ export default function ListOfFiles(props) {
 	const userId = user.id
 
 	const [files, setFiles] = useState([])
+	const [search, setSearch] = useState('')
+
+	const handlerSearch = e => {
+		setSearch(e.target.value)
+	}
+
+	//filter
+	let results = []
+	if (!search) {
+		results = files
+	} else {
+		results = files.filter(data =>
+			data.filename.toLowerCase().includes(search.toLocaleLowerCase()),
+		)
+	}
 
 	useEffect(() => {
 		fetch(
@@ -58,9 +73,11 @@ export default function ListOfFiles(props) {
 						</svg>
 					</div>
 					<input
+						value={search}
+						onChange={handlerSearch}
 						type="text"
 						id="table-search"
-						className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+						className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  focus:ring-2 focus:ring-dark-blue-2 outline-none"
 						placeholder="Buscar Pedido"
 					/>
 				</div>
@@ -92,7 +109,7 @@ export default function ListOfFiles(props) {
 				</thead>
 
 				<tbody className=" ">
-					{files.map(file => (
+					{results.map(file => (
 						<tr
 							key={file.id}
 							className="text-left bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -109,7 +126,7 @@ export default function ListOfFiles(props) {
 							<td className="px-6 py-4">
 								<a
 									href={file.downloadUrl}
-									className=" py-2 px-7 rounded-md bg-blue-600 font-medium text-white dark:text-blue-500  focus:bg-dark-blue transition-all duration-150 hover:bg-dark-blue-2 hover:scale-105">
+									className=" py-2 px-7 rounded-md focus:ring-4 bg-dark-blue font-medium text-white  focus:bg-dark-blue transition-all duration-150 hover:bg-dark-blue-2 hover:scale-105 ">
 									Descargar
 								</a>
 							</td>
@@ -119,6 +136,11 @@ export default function ListOfFiles(props) {
 			</table>
 			{files.length <= 0 ? (
 				<h2 className="text-center font-semibold p-10">Aún no hay archivos</h2>
+			) : (
+				''
+			)}
+			{results.length && search <= 0 ? (
+				<h2 className="text-center font-semibold p-10">Pedido no Encontrado</h2>
 			) : (
 				''
 			)}

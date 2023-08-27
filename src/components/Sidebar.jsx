@@ -20,7 +20,6 @@ const Sidebar = ({ children }) => {
 	const currentPath = location.pathname
 
 	let menu = []
-	console.log(user.type)
 
 	if (user.type == 1) {
 		menu = [
@@ -45,7 +44,7 @@ const Sidebar = ({ children }) => {
 					<IconCircleChevronLeft
 						onClick={() => setOpen(!open)}
 						className={`absolute cursor-pointer -right-3 top-9 w-7 border-dark-purple
-           border-2 rounded-full  ${!open && 'rotate-180'}`}
+            rounded-full   ${!open && 'rotate-180'}`}
 					/>
 					<div className="flex gap-x-4 items-center">
 						<h1
@@ -62,9 +61,9 @@ const Sidebar = ({ children }) => {
 							<Link
 								to={item.to}
 								key={index}
-								className={`flex  rounded-md p-2 cursor-pointer hover:bg-black text-gray-300 text-sm items-center gap-x-4 
+								className={`flex  rounded-md p-2 cursor-pointer hover:bg-dark-blue-2 hover:text-white  text-sm items-center gap-x-4 
               ${item.gap ? 'mt-9' : 'mt-2'} ${
-								currentPath === item.to ? 'bg-slate-700' : ''
+								currentPath === item.to ? 'bg-dark-blue text-gray-300' : ''
 							}  `}>
 								{item.src}
 								<span
@@ -76,7 +75,7 @@ const Sidebar = ({ children }) => {
 					</ul>
 				</div>
 				<div className=" p-5  flex flex-col gap-3">
-					<div className="flex flex-row gap-2">
+					<div className="flex flex-row gap-2 cursor-pointer">
 						<IconUserCircle />
 						<span className={`${!open && 'hidden'} origin-left duration-200`}>
 							{user.name} {user.lastname}
@@ -84,7 +83,7 @@ const Sidebar = ({ children }) => {
 					</div>
 					<Link
 						to="/logout"
-						className="flex flex-row gap-2 hover:bg-black rounded-md hover:text-white p-4">
+						className="flex flex-row gap-2 hover:bg-dark-blue-2 rounded-md hover:text-white px-4 py-2">
 						<IconLogout />
 						<span className={`${!open && 'hidden'} origin-left duration-200`}>
 							Cerrar Sesión
