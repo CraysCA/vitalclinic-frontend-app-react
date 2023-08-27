@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createHashRouter } from 'react-router-dom'
 import './index.css'
 import React from 'react'
 
@@ -12,7 +12,7 @@ import Files from './Pages/Files/Files'
 import NotFound from './Pages/NotFound'
 import Logout from './Pages/logout'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
 	{
 		path: '/login',
 		element: <Login />,
