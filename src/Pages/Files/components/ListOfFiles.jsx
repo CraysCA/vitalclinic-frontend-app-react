@@ -26,12 +26,12 @@ export default function ListOfFiles(props) {
 			data.filename.toLowerCase().includes(search.toLocaleLowerCase()),
 		)
 	}
+	let usera = user.id
+	if (user.type == 1 || user.type == 2) usera = ''
 
 	useEffect(() => {
 		fetch(
-			`${import.meta.env.VITE_BACKEND_API}/files/?userId=${
-				userId || ''
-			}&isClient=1`,
+			`${import.meta.env.VITE_BACKEND_API}/files/?userId=${usera}&isClient=1`,
 			{
 				method: 'GET',
 				headers: {
